@@ -4,8 +4,8 @@ import net.dv8tion.jda.api.events.message.guild.GuildMessageReceivedEvent;
 import ru.pasvitas.discordbots.examplebot.commands.AbstractGuildCommand;
 import ru.pasvitas.discordbots.examplebot.commands.BotCommand;
 
-@BotCommand
-public class BronyaCommand extends AbstractGuildCommand {
+@BotCommand //Помечает, что это бот-команда и её надо регистрировать
+public class BronyaCommand extends AbstractGuildCommand { //Наследуемся от абстракции для сервера, так как команда серверная
 
     /**
      * Название команды
