@@ -1,0 +1,16 @@
+bot:
+  active: false
+  token: 123
+  prefix: Тестбот,
+
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb;MODE=POSTGRESQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
+
+logging:
+  level:
+    ru.pasvitas.discordbots.examplebot: DEBUG
+

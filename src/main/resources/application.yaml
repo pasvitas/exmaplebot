@@ -1,0 +1,16 @@
+server:
+  port: 8090
+
+bot:
+  token:
+  prefix:
+  version: @project.version@
+  #playing, streaming, watching, listening
+  activityType: Playing
+  activityDetails: тестовый бот
+
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/example_bot_db
+    username: postgres
+    password: 123456

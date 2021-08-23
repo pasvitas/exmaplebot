@@ -1,0 +1,29 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-jokes.yaml
+  - changeSet:
+      id: 1-create-table-for-jokes
+      author: pasvitas
+      changes:
+        - createTable:
+            tableName: jokes
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: joke
+                  type: VARCHAR(511)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 1-create-seq-for-jokes
+      author: pasvitas
+      changes:
+        - createSequence:
+            incrementBy:  1
+            sequenceName:  joke_id_seq
+            startValue:  1

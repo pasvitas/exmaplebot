@@ -1,0 +1,14 @@
+bot:
+  token: 123
+  prefix: ???,
+
+spring:
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/example_bot_db
+    username: postgres
+    password: 123456
+
+logging:
+  level:
+    ru.pasvitas.discordbots.examplebot: DEBUG
+
