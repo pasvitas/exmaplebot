@@ -21,8 +21,16 @@ public class DescCommand extends AbstractGuildCommand {
         int wordStartIndex = StringUtils.ordinalIndexOf(wholeMessage, " ", 3) + 1;
         String desc = wholeMessage.substring(wordStartIndex);
 
-        if(desc.contains("?"))
+        if (desc.isBlank()) {
+            message
+                    .getChannel() //Получаем канал, куда писать
+                    .sendMessage(message.getAuthor().getAsMention() + ", чего бл? Повтори нормально!") //Формируем сообщение (@упоминание, значение)
+                    .queue(); //Отправляем
+        }
+
+        if(desc.contains("?")) {
             desc = desc.replaceAll("[?]", "");
+        }
 
         String word = dictService.getWord(desc); //Забираем определение слова
 

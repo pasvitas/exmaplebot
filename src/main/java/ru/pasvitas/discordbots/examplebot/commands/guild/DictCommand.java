@@ -22,15 +22,16 @@ public class DictCommand extends AbstractGuildCommand {
         int wordStartIndex = StringUtils.ordinalIndexOf(wholeMessage, " ", 3) + 1;
         String word = wholeMessage.substring(wordStartIndex);
 
-        if (word.isBlank()){
+        if (word.isBlank()) {
             message
                     .getChannel() //Получаем канал, куда писать
                     .sendMessage(message.getAuthor().getAsMention() + ", чего бл? Повтори нормально!") //Формируем сообщение (@упоминание, значение)
                     .queue(); //Отправляем
         }
 
-        if(word.contains("?"))
+        if(word.contains("?")) {
             word = word.replaceAll("[?]", "");
+        }
 
         String description = dictService.getDescription(word); //Забираем определение слова
 
