@@ -4,11 +4,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import ru.pasvitas.discordbots.examplebot.exceptions.InputDataException;
+import ru.pasvitas.discordbots.examplebot.exceptions.WordNotExistsException;
 import ru.pasvitas.discordbots.examplebot.repository.DictRepository;
 import ru.pasvitas.discordbots.examplebot.repository.JokeRepository;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 class DictServiceImplTest {
 
@@ -36,16 +39,14 @@ class DictServiceImplTest {
     @DisplayName("Test get non existing word description")
     @Test
     void getNonExistingDescription() {
-        assertNull(dictService.getDescription("NaW"));
+        assertThrows(WordNotExistsException.class, () -> dictService.getDescription("NaW"));
     }
 
     @DisplayName("Test get null word description")
     @Test
     void getNullDescription() {
-        assertNull(dictService.getDescription(null));
+        assertThrows(InputDataException.class, () -> dictService.getDescription(null));
     }
-
-
 
     @DisplayName("Test get description of existing word")
     @Test

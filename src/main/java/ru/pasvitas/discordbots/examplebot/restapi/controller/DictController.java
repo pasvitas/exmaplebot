@@ -24,13 +24,7 @@ public class DictController {
 
     @GetMapping("/api/dict/{word}")
     public ResponseEntity<DictResponse> getDescription(@PathVariable("word") String word) {
-
-        String desc = dictService.getDescription(word);
-        if (desc != null) {
-            return ResponseEntity.ok(new DictResponse(word, desc));
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        return ResponseEntity.ok(new DictResponse(word, dictService.getDescription(word)));
     }
 
     @GetMapping("/api/dict")
@@ -41,31 +35,20 @@ public class DictController {
     @PostMapping("/api/dict")
     public ResponseEntity<DictResponse> addWord(@RequestBody DictResponse dictResponse) {
 
-        if (dictService.addWord(dictResponse.getWord(), dictResponse.getDescription())) {
-            return ResponseEntity.created(URI.create("/api/dict/" + dictResponse.getWord())).build();
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+        dictService.addWord(dictResponse.getWord(), dictResponse.getDescription());
+        return ResponseEntity.created(URI.create("/api/dict/" + dictResponse.getWord())).body(dictResponse);
     }
 
     @PutMapping("/api/dict/{word}")
     public ResponseEntity<DictResponse> updateDescription(@PathVariable("word") String word, @RequestBody String description) {
 
-        if (dictService.updateDescription(word, description)) {
-            return ResponseEntity.ok(new DictResponse(word, description));
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
+        dictService.updateDescription(word, description);
+        return ResponseEntity.ok(new DictResponse(word, description));
     }
 
     @DeleteMapping("/api/dict/{word}")
     public ResponseEntity<Void> deleteWord(@PathVariable("word") String word) {
-
-        if (dictService.deleteWord(word)) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.badRequest().build();
-        }
-
+        dictService.deleteWord(word);
+        return ResponseEntity.ok().build();
     }
 }

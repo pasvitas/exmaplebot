@@ -3,6 +3,8 @@ package ru.pasvitas.discordbots.examplebot.service;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.pasvitas.discordbots.examplebot.exceptions.InputDataException;
+import ru.pasvitas.discordbots.examplebot.exceptions.WordNotExistsException;
 import ru.pasvitas.discordbots.examplebot.repository.DictRepository;
 import ru.pasvitas.discordbots.examplebot.repository.model.DictModel;
 import ru.pasvitas.discordbots.examplebot.restapi.controller.DictController;
@@ -19,7 +21,14 @@ public class DictServiceImpl implements DictService {
 
     @Override
     public String getDescription(String word) {
-        return dictRepository.getDescription(word);
+        if (word == null) {
+            throw new InputDataException();
+        }
+        String description = dictRepository.getDescription(word);
+        if (description == null) {
+            throw new WordNotExistsException();
+        }
+        return description;
     }
 
     @Override
@@ -28,24 +37,21 @@ public class DictServiceImpl implements DictService {
     }
 
     @Override
-    public boolean addWord(String word, String description) {
+    public void addWord(String word, String description) {
 
         if (word == null || description == null) {
-            return false;
+            throw new InputDataException();
         }
         dictRepository.addWord(word, description);
-        return true;
     }
 
     @Override
-    public boolean deleteWord(String word) {
+    public void deleteWord(String word) {
 
         if (word == null) {
-            return false;
+            throw new InputDataException();
         }
         dictRepository.deleteWord(word);
-
-        return dictRepository.getDescription(word) == null;
     }
 
     @Override
@@ -57,11 +63,10 @@ public class DictServiceImpl implements DictService {
     }
 
     @Override
-    public boolean updateDescription(String word, String description) {
+    public void updateDescription(String word, String description) {
         if (word == null || description == null) {
-            return false;
+            throw new InputDataException();
         }
         dictRepository.updateDescription(word, description);
-        return true;
     }
 }

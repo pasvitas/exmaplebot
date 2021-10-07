@@ -12,9 +12,9 @@ public interface DictService {
     String getDescription(String word);
     String getWord(String desc);
 
-    boolean addWord(String word, String description);
-    boolean deleteWord(String word);
-    boolean updateDescription(String word, String description);
+    void addWord(String word, String description);
+    void deleteWord(String word);
+    void updateDescription(String word, String description);
 
     List<DictResponse> getAll();
 }
