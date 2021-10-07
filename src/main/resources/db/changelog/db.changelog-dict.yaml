@@ -1,0 +1,34 @@
+databaseChangeLog:
+  - logicalFilePath: db/changelog/db.changelog-dict.yaml
+  - changeSet:
+      id: 1-create-table-for-dict
+      author: dmarteenez
+      changes:
+        - createTable:
+            tableName: dict
+            columns:
+              - column:
+                  name: id
+                  type: BIGINT
+                  autoIncrement: true
+                  constraints:
+                    primaryKey: true
+                    nullable: false
+              - column:
+                  name: word
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: VARCHAR(1000)
+                  constraints:
+                    nullable: false
+  - changeSet:
+      id: 1-create-seq-for-dict
+      author: dmarteenez
+      changes:
+        - createSequence:
+            incrementBy:  1
+            sequenceName:  dict_id_seq
+            startValue:  1
