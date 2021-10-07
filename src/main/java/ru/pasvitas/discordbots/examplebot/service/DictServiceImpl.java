@@ -1,5 +1,6 @@
 package ru.pasvitas.discordbots.examplebot.service;
 
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.pasvitas.discordbots.examplebot.repository.DictRepository;
@@ -35,7 +36,7 @@ public class DictServiceImpl implements DictService {
         dictRepository.addWord(word, description);
         return true;
     }
-    
+
     @Override
     public boolean deleteWord(String word) {
 
@@ -43,25 +44,16 @@ public class DictServiceImpl implements DictService {
             return false;
         }
         dictRepository.deleteWord(word);
-        if(dictRepository.getDescription(word) == null){
-            return true;
-        }else{
-            return false;
-        }
 
+        return dictRepository.getDescription(word) == null;
     }
 
     @Override
     public List<DictResponse> getAll() {
-
-        List<DictResponse> dictResponses = new ArrayList<>();
-        List<DictModel> all = dictRepository.getAll();
-
-        for(var el : all){
-            dictResponses.add(new DictResponse(el.getWord(), el.getDescription()));
-        }
-
-        return dictResponses;
+        return dictRepository.getAll()
+                .stream()
+                .map(el -> new DictResponse(el.getWord(), el.getDescription()))
+                .collect(Collectors.toList());
     }
 
     @Override

@@ -9,7 +9,7 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @Repository
-public class DictRepositoryImpl implements DictRepository{
+public class DictRepositoryImpl implements DictRepository {
 
     public final DictMapper dictMapper;
 

@@ -14,7 +14,9 @@ public class DictCommand extends AbstractGuildCommand {
     private final DictService dictService; // Зависимости класса
 
     @Override
-    public String getCommandName() { return "что такое"; }
+    public String getCommandName() {
+        return "что такое";
+    }
 
     @Override
     public void processGuildCommand(GuildMessageReceivedEvent message) {
@@ -29,7 +31,7 @@ public class DictCommand extends AbstractGuildCommand {
                     .queue(); //Отправляем
         }
 
-        if(word.contains("?")) {
+        if (word.contains("?")) {
             word = word.replaceAll("[?]", "");
         }
 
@@ -40,11 +42,10 @@ public class DictCommand extends AbstractGuildCommand {
                     .getChannel() //Получаем канал, куда писать
                     .sendMessage(message.getAuthor().getAsMention() + ", " + word + " - " + description) //Формируем сообщение (@упоминание, значение)
                     .queue(); //Отправляем
-        }
-        else { //Если слова не оказалось
+        } else { //Если слова не оказалось
             message
                     .getChannel() //Получаем канал, куда писать
-                    .sendMessage(message.getAuthor().getAsMention() +  ", я таких слов не знаю!") //Формируем сообщение
+                    .sendMessage(message.getAuthor().getAsMention() + ", я таких слов не знаю!") //Формируем сообщение
                     .queue(); //Отправляем
         }
     }
